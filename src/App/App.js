@@ -9,6 +9,14 @@ const PERIOD = 15000;
 
 const bell = new Audio('bell.wav');
 
+function notify(message) {
+  if (Notification.permission === 'denied') {
+    alert(message);
+  } else {
+    new Notification(message);
+  }
+}
+
 class App extends Component {
   state = {
     station: {},
@@ -56,6 +64,7 @@ class App extends Component {
       const checkCounts = () => {
         if (this.state[what] > 0) {
           bell.play();
+          notify(`There is now a ${what} available.`);
           this.wait(null);
         }
       };
@@ -63,6 +72,12 @@ class App extends Component {
       checkCounts();
     }
     this.setState({ waitInterval });
+  }
+  
+  componentDidMount() {
+    if (Notification.permission === 'default') {
+      Notification.requestPermission();
+    }
   }
 
   componentWillUnmount() {
