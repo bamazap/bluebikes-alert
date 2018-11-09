@@ -5,6 +5,10 @@
 /.pnp
 .pnp.js
 
+
+# transpiled
+build
+
 # testing
 /coverage
 
