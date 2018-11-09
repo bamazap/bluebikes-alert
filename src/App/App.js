@@ -78,7 +78,7 @@ class App extends Component {
     return (
       <div id="app" className="flow">
         <header>
-          <h1>BLUEbikes Alert</h1>
+          <h1>BLUEbikes Watcher</h1>
         </header>
         <main className="flow">
           <SelectStation
