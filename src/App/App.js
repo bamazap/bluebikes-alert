@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import * as axios from 'axios';
-import Sound from 'react-sound';
 import './App.css';
 import SelectStation from '../SelectStation/SelectStation';
 import ShowStation from '../ShowStation/ShowStation';
 import ShowCounts from '../ShowCounts/ShowCounts';
 
 const PERIOD = 15000;
+
+const bell = new Audio('bell.wav');
 
 class App extends Component {
   state = {
@@ -15,7 +16,6 @@ class App extends Component {
     waitInterval: NaN,
     bike: undefined,
     dock: undefined,
-    playing: false,
   };
 
   handleSelectStation = station => {
@@ -55,7 +55,7 @@ class App extends Component {
     if (what) {
       const checkCounts = () => {
         if (this.state[what] > 0) {
-          this.setState({ playing: true });    
+          bell.play();
           this.wait(null);
         }
       };
@@ -63,10 +63,6 @@ class App extends Component {
       checkCounts();
     }
     this.setState({ waitInterval });
-  }
-
-  donePlaying = event => {
-    this.setState({ playing: false });
   }
 
   componentWillUnmount() {
@@ -102,13 +98,6 @@ class App extends Component {
             >{waiting ? 'Stop waiting' : 'Wait'} for {waitFor}.</button>
           ) : (<div />)}
         </main>
-        <aside>
-          <Sound
-            url="bell.wav"
-            playStatus={this.state.playing ? Sound.status.PLAYING : Sound.status.STOPPED}
-            onFinishedPlaying={this.donePlaying}
-          />
-        </aside>
       </div>
     );
   }
