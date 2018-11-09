@@ -19,6 +19,7 @@ class App extends Component {
   };
 
   handleSelectStation = station => {
+    station = station || {};
     this.setState({ station });
     this.poll(station.station_id);
     this.wait(null);
