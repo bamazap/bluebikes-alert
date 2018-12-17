@@ -1,6 +1,6 @@
 {
-  "short_name": "bbalert",
-  "name": "BLUEbikes Alert",
+  "short_name": "bbwatch",
+  "name": "BLUEbikes Watcher",
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#006699",
