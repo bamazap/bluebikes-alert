@@ -9,6 +9,10 @@ const PERIOD = 15000;
 
 const bell = new Audio('bell.wav');
 
+// handle browsers which do not have the notification API
+// eslint-disable-next-line no-use-before-define
+var Notification = Notification || { permission: 'denied' };
+
 function notify(message) {
   if (Notification.permission === 'denied') {
     alert(message);
