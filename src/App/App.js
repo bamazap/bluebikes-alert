@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import * as axios from 'axios';
 import './App.css';
 import SelectStation from '../SelectStation/SelectStation';
 import ShowStation from '../ShowStation/ShowStation';
@@ -40,10 +39,14 @@ class App extends Component {
   poll(stationID) {
     clearInterval(this.state.pollInterval);
     const pollAPI = () => {
-      axios
-        .get('https://gbfs.bluebikes.com/gbfs/en/station_status.json')
-        .then(res => {
-          const stations = res.data.data.stations
+      fetch('https://gbfs.bluebikes.com/gbfs/en/station_status.json')
+        .then(res => res.json())
+        .catch(() => {
+          notify('Could not connect to Blue Bikes servers.');
+          return { data: { stations: [] } };
+        })
+        .then(data => {
+          const stations = data.data.stations
             .filter(s => s.station_id === stationID);
           if (stations.length === 1) {
             this.setState({

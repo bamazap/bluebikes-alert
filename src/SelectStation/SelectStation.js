@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import * as axios from 'axios';
 import Select from 'react-select';
 import './SelectStation.css';
 
@@ -15,10 +14,14 @@ class SelectStation extends Component {
   };
 
   componentDidMount() {
-    axios
-      .get(`https://gbfs.bluebikes.com/gbfs/en/station_information.json`)
-      .then(res => this.setState({
-        stations: res.data.data.stations
+    fetch(`https://gbfs.bluebikes.com/gbfs/en/station_information.json`)
+      .then(res => res.json())
+      .catch(() => {
+        alert('Could not connect to Blue Bikes servers.');
+        return { data: { stations: [] } };
+      })
+      .then(data => this.setState({
+        stations: data.data.stations
           .map(station => ({ value: station, label: station.name })),
       }));
   }
