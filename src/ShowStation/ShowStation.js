@@ -1,5 +1,6 @@
 
 import React, { Component } from 'react';
+import './ShowStation.css';
 
 const WIDTH = 600;
 const HEIGHT = 300;
@@ -19,7 +20,9 @@ class ShowStation extends Component {
       + `&c=${lat},${lon}`
       + (showStation ? '' : '&nodot');
     return (
-      <img src={uri} alt={'Station on Map'}/>
+      <div className='show-station'>
+        <img src={uri} alt={'Station on Map'}/>
+      </div>
     );
   }
 }
